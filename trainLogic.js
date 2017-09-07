@@ -19,7 +19,7 @@ var config = {
  	// gather input
  	var trainName = $("#name-input").val().trim();
  	var trainDest = $("#destination-input").val().trim();
- 	var trainTime = moment($("#time-input").val().trim(), "HH:mm").format("X");
+ 	var trainTime = moment($("#time-input").val().trim(), "HH:mm");
  	var trainFreq = moment($("#frequency-input").val().trim(), "mm");
  	//!!!!!!!!!!!!!!!!!!!! or var trainFreq = $("#frequency-input").val().trim();
 
@@ -53,4 +53,30 @@ var config = {
  database.ref().on("child_added", function(childSnapshot, prevChildKey) {
  	console.log("test childSnapshot from firebase");
 	console.log(childSnapshot.val());
+
+	// store data from firebase
+	var trainName = childSnapshot.val().name;
+	var trainDest = childSnapshot.val().dest;
+	var trainTime = childSnapshot.val().time;
+	var trainFreq = childSnapshot.val().freq;
+
+	// logs
+	console.log("test new vars made from firebase");
+	console.log(trainName);
+	console.log(trainDest);
+	console.log(trainTime);
+	console.log(trainFreq);
+
+	// prettify??
+
+	// calculate next arrival
+	var nextArrival = 1;
+
+	// calculate minutes away
+	var minutesAway = 2;
+
+	// add new trains to the table
+	$("#train-table > tbody").append("<tr><td>" + trainName + "</td><td>" + trainDest + "</td><td>" + trainFreq + "</td><td>" + nextArrival + "</td><td>" + minutesAway + "</td></tr>");
+
+
  });
