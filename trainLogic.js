@@ -4,10 +4,10 @@ var config = {
     authDomain: "trainscheduler-a98cf.firebaseapp.com",
     databaseURL: "https://trainscheduler-a98cf.firebaseio.com",
     projectId: "trainscheduler-a98cf",
-    storageBucket: "",
+    storageBucket: "trainscheduler-a98cf.appspot.com",
     messagingSenderId: "9625916010"
  };
- 
+
  firebase.initializeApp(config);
 
  var database = firebase.database();
@@ -19,9 +19,14 @@ var config = {
  	// gather input
  	var trainName = $("#name-input").val().trim();
  	var trainDest = $("#destination-input").val().trim();
- 	var trainTime = moment($("#time-input").val().trim(), "HH:mm");
- 	var trainFreq = moment($("#frequency-input").val().trim(), "mm");
- 	//!!!!!!!!!!!!!!!!!!!! or var trainFreq = $("#frequency-input").val().trim();
+ 	var trainTime = moment($("#time-input").val().trim(), "HH:mm").format("HH:mm");
+ 	var trainFreq = $("#frequency-input").val().trim();
+ 	// var trainFreq = moment($("#frequency-input").val().trim(), "mm").format("mm");
+
+ 	console.log(trainName);
+ 	console.log(trainDest);
+ 	console.log(trainTime);
+ 	console.log(trainFreq);
 
  	// temp object to hold new train data
  	var newTrain = {
@@ -34,9 +39,9 @@ var config = {
  	// upload new data to firebase
  	database.ref().push(newTrain);
 
- 	logs
+ 	// logs
 	console.log("test object and individuals");
-	console.log(newEmp);
+	console.log(newTrain);
 
 	// alert
 	alert("New train successfully added");
@@ -51,6 +56,7 @@ var config = {
 
  // retrieve info from firebase
  database.ref().on("child_added", function(childSnapshot, prevChildKey) {
+
  	console.log("test childSnapshot from firebase");
 	console.log(childSnapshot.val());
 
